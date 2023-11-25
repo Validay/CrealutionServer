@@ -12,18 +12,13 @@ namespace CrealutionServer.Infrastructure.Database
         public DbSet<StatisticType> StatisticTypes { get; set; }
         public DbSet<CreatureStatisticType> CreatureStatisticTypes { get; set; }
 
-        public CrealutionDb()
+        protected CrealutionDb()
         {
         }
 
         public CrealutionDb(DbContextOptions<CrealutionDb> options)
             : base(options)
         {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
