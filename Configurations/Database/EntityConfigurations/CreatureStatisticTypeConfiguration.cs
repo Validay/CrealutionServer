@@ -1,8 +1,8 @@
 ﻿using CrealutionServer.Domain.Entities;
-using CrealutionServer.Helper.Database.EntityConfigurations.Interfaces;
+using CrealutionServer.Configurations.Database.EntityConfigurations.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace CrealutionServer.Helper.Database.EntityConfigurations
+namespace CrealutionServer.Configurations.Database.EntityConfigurations
 {
     public class CreatureStatisticTypeConfiguration : IEntityConfiguration
     {

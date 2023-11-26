@@ -20,6 +20,14 @@ namespace CrealutionServer.Domain.Entities
         {
         }
 
+        public StatisticType(
+            long id, 
+            string name)
+        {
+            Id = id;
+            Name = name;
+        }
+
         public StatisticType(string name)
         {
             Name = name;

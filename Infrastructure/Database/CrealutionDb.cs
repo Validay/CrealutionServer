@@ -1,5 +1,5 @@
 ﻿using CrealutionServer.Domain.Entities;
-using CrealutionServer.Helper.Database.EntityConfigurations.Interfaces;
+using CrealutionServer.Configurations.Database.EntityConfigurations.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -9,8 +9,8 @@ namespace CrealutionServer.Infrastructure.Database
 {
     public class CrealutionDb : DbContext
     {
-        public DbSet<StatisticType> StatisticTypes { get; set; }
-        public DbSet<CreatureStatisticType> CreatureStatisticTypes { get; set; }
+        public virtual DbSet<StatisticType> StatisticTypes { get; set; }  
+        public virtual  DbSet<CreatureStatisticType> CreatureStatisticTypes { get; set; }
 
         protected CrealutionDb()
         {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace CrealutionServer.Helper.Database.EntityConfigurations.Interfaces
+namespace CrealutionServer.Configurations.Database.EntityConfigurations.Interfaces
 {
     public interface IEntityConfiguration
     {
