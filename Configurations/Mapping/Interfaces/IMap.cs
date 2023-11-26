@@ -1,4 +1,4 @@
-﻿namespace CrealutionServer.Helper.Mapping.Interfaces
+﻿namespace CrealutionServer.Configurations.Mapping.Interfaces
 {
     public interface IMap
     {

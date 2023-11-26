@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Reflection;
 using AutoMapper;
-using CrealutionServer.Helper.Mapping.Interfaces;
+using CrealutionServer.Configurations.Mapping.Interfaces;
 
-namespace CrealutionServer.Helper.Mapping
+namespace CrealutionServer.Configurations.Mapping
 {
     public class CrealutionMappingProfile : Profile
     {

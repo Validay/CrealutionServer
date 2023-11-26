@@ -7,12 +7,13 @@ using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using System;
-using CrealutionServer.Helper.Mapping;
 using CrealutionServer.Infrastructure.Repositories;
 using CrealutionServer.Infrastructure.Repositories.Interfaces;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Collections.Generic;
+using CrealutionServer.Infrastructure.Middlewares;
+using CrealutionServer.Configurations.Mapping;
 
 namespace CrealutionServer.WebApi
 {
@@ -36,8 +37,7 @@ namespace CrealutionServer.WebApi
                     Description = "Crealution server WebAPI",
                     Contact = new OpenApiContact
                     {
-                        Name = "Contacts",
-                        Email = "validaypromabe@gmail.com"
+                        Email = builder.Configuration.GetSection("Contacts")["Email"]
                     }
                 });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -72,7 +72,7 @@ namespace CrealutionServer.WebApi
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration.GetSection("ElsasticSearch")["Url"]))
                 {
                     AutoRegisterTemplate = true,
                 })
@@ -101,6 +101,7 @@ namespace CrealutionServer.WebApi
             app.UseHttpsRedirection();
             app.UseAuthorization();
             app.MapControllers();
+            app.UseMiddleware<CrealutionErrorHandlingMiddleware>();
             app.Run();
         }
     }

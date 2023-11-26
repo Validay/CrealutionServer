@@ -1,10 +1,10 @@
 ﻿using CrealutionServer.Domain.Entities;
-using CrealutionServer.Helper.Mapping.Interfaces;
+using CrealutionServer.Configurations.Mapping.Interfaces;
 using CrealutionServer.Models.Dtos.StatisticTypes;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CrealutionServer.Helper.Mapping.Mappers
+namespace CrealutionServer.Configurations.Mapping.Mappers
 {
     public class StatisticTypeMap : IMap
     {
@@ -25,6 +25,12 @@ namespace CrealutionServer.Helper.Mapping.Mappers
                     .MapFrom(src => src.Name));
 
             profile.CreateMap<StatisticTypeCreateDto, StatisticType>()
+                .ForMember(dest => dest.Name, opt => opt
+                    .MapFrom(src => src.Name));
+
+            profile.CreateMap<StatisticTypeUpdateDto, StatisticType>()
+                .ForMember(dest => dest.Id, opt => opt
+                    .MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt
                     .MapFrom(src => src.Name));
         }
