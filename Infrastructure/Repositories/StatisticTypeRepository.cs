@@ -28,7 +28,7 @@ namespace CrealutionServer.Infrastructure.Repositories
         {
             _mapper = mapper;
             _context = context;
-        }
+        }   
 
         /// <summary>
         /// Gets all StatisticType entities.
