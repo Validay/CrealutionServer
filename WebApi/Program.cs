@@ -65,7 +65,6 @@ namespace CrealutionServer.WebApi
                 });
             });
 
-            builder.Services.AddSignalR();
             builder.Services.AddAutoMapper(typeof(CrealutionMappingProfile));
             builder.Services.AddDbContext<CrealutionDb>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
