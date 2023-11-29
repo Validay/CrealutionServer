@@ -92,7 +92,7 @@ namespace CrealutionServer.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.Id == updateDto.Id);
             var dublicate = await _context.StatisticTypes.FirstOrDefaultAsync(x => x.Name == updateDto.Name);
 
-            if (entity != null)
+            if (entity == null)
                 throw new CrealutionEntityNotFound($"{nameof(StatisticType)} has been not found");
 
             if (dublicate != null)
@@ -114,7 +114,7 @@ namespace CrealutionServer.Infrastructure.Repositories
             var entity = await _context.StatisticTypes
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (entity != null)
+            if (entity == null)
                 throw new CrealutionEntityNotFound($"{nameof(StatisticType)} has been not found");
 
 
