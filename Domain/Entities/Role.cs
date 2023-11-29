@@ -7,9 +7,11 @@ namespace CrealutionServer.Domain.Entities
     public class Role
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; private set; }
 
+        [Key]
         [Required]
         [StringLength(255)]
         public string Name { get; private set; }
@@ -36,6 +38,11 @@ namespace CrealutionServer.Domain.Entities
         public void Update(string name)
         {
             Name = name;
+        }
+
+        public void SetAccounts(ICollection<Account> accounts)
+        {
+            Accounts = accounts;
         }
     }
 }

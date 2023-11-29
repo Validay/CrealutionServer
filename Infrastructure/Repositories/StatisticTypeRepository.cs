@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 namespace CrealutionServer.Infrastructure.Repositories
 {
     /// <summary>
-    /// Repository for managing StatisticType entities.
+    /// Repository for managing <see cref="StatisticType"/> entities.
     /// </summary
     public class StatisticTypeRepository : IStatisticTypeRepository
     {
@@ -64,10 +64,15 @@ namespace CrealutionServer.Infrastructure.Repositories
         /// </summary>
         /// <param name="createDto">The data to create the StatisticType entity.</param>
         /// <returns>The created StatisticType entity.</returns>
+        /// <exception cref="CrealutionEntityValidateError">Thrown if a duplicate statistic type name is detected.</exception>
         public async Task<StatisticTypeDto> Create(StatisticTypeCreateDto createDto)
         {
             var entity = _mapper.Map<StatisticType>(createDto);
+            var dublicate = await _context.StatisticTypes.FirstOrDefaultAsync(x => x.Name == createDto.Name);
             var entryEntity = await _context.StatisticTypes.AddAsync(entity);
+
+            if (dublicate != null)
+                throw new CrealutionEntityValidateError($"{nameof(StatisticType)} name already exist");
 
             await _context.SaveChangesAsync();
 
@@ -80,20 +85,21 @@ namespace CrealutionServer.Infrastructure.Repositories
         /// <param name="updateDto">The data to update the StatisticType entity.</param>
         /// <returns>The updated StatisticType entity.</returns>
         /// <exception cref="CrealutionEntityNotFound">Thrown when the StatisticType entity is not found.</exception>
+        /// <exception cref="CrealutionEntityValidateError">Thrown if a duplicate statistic type name is detected.</exception>
         public async Task<StatisticTypeDto> Update(StatisticTypeUpdateDto updateDto)
         {
             var entity = await _context.StatisticTypes
                 .FirstOrDefaultAsync(x => x.Id == updateDto.Id);
+            var dublicate = await _context.StatisticTypes.FirstOrDefaultAsync(x => x.Name == updateDto.Name);
 
             if (entity != null)
-            {
-                _mapper.Map(updateDto, entity);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
                 throw new CrealutionEntityNotFound($"{nameof(StatisticType)} has been not found");
-            }
+
+            if (dublicate != null)
+                throw new CrealutionEntityValidateError($"{nameof(StatisticType)} name already exist");
+
+            _mapper.Map(updateDto, entity);
+            await _context.SaveChangesAsync();
 
             return _mapper.Map<StatisticTypeDto>(entity);
         }
@@ -109,14 +115,11 @@ namespace CrealutionServer.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity != null)
-            {
-                _context.StatisticTypes.Remove(entity);
-                await _context.SaveChangesAsync();
-            }
-            else
-            {
                 throw new CrealutionEntityNotFound($"{nameof(StatisticType)} has been not found");
-            }
+
+
+            _context.StatisticTypes.Remove(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

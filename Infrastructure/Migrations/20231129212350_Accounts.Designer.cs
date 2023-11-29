@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CrealutionServer.Infrastructure.Migrations
 {
     [DbContext(typeof(CrealutionDb))]
-    [Migration("20231126161137_Accounts")]
+    [Migration("20231129212350_Accounts")]
     partial class Accounts
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,21 @@ namespace CrealutionServer.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("AccountRole", b =>
+                {
+                    b.Property<long>("AccountsId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("RolesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("AccountsId", "RolesId");
+
+                    b.HasIndex("RolesId");
+
+                    b.ToTable("AccountRole");
+                });
 
             modelBuilder.Entity("CrealutionServer.Domain.Entities.Account", b =>
                 {
@@ -59,12 +74,10 @@ namespace CrealutionServer.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<long>("RoleId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Accounts");
                 });
@@ -105,6 +118,9 @@ namespace CrealutionServer.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Roles");
                 });
 
@@ -126,15 +142,19 @@ namespace CrealutionServer.Infrastructure.Migrations
                     b.ToTable("StatisticTypes");
                 });
 
-            modelBuilder.Entity("CrealutionServer.Domain.Entities.Account", b =>
+            modelBuilder.Entity("AccountRole", b =>
                 {
-                    b.HasOne("CrealutionServer.Domain.Entities.Role", "Role")
-                        .WithMany("Accounts")
-                        .HasForeignKey("RoleId")
+                    b.HasOne("CrealutionServer.Domain.Entities.Account", null)
+                        .WithMany()
+                        .HasForeignKey("AccountsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    b.HasOne("CrealutionServer.Domain.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CrealutionServer.Domain.Entities.CreatureStatisticType", b =>
@@ -146,11 +166,6 @@ namespace CrealutionServer.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("StatisticType");
-                });
-
-            modelBuilder.Entity("CrealutionServer.Domain.Entities.Role", b =>
-                {
-                    b.Navigation("Accounts");
                 });
 
             modelBuilder.Entity("CrealutionServer.Domain.Entities.StatisticType", b =>

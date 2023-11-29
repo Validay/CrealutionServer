@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,11 +8,11 @@ namespace CrealutionServer.Domain.Entities
     public class Account
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; private set; }
 
-        public long RoleId { get; private set; }
-
+        [Key]
         [Required]
         [StringLength(255)]
         public string Name { get; private set; }
@@ -24,19 +25,23 @@ namespace CrealutionServer.Domain.Entities
         [StringLength(255)]
         public string Password { get; private set; }
 
+        [Required]
         public bool InGame { get; private set; }
 
+        [Required]
         public bool InBanned { get; private set; }
 
+        [Required]
         public DateTime CreateDate { get; private set; }
 
         public DateTime? LastLoginDate { get; private set; }
 
         [Required]
-        public virtual Role Role { get; private set; }
+        public virtual ICollection<Role> Roles { get; private set; }
 
         protected Account()
-        { 
+        {
+            CreateDate = DateTime.UtcNow;
         }
 
         public Account(
@@ -44,16 +49,14 @@ namespace CrealutionServer.Domain.Entities
             string displayName,
             string password,
             bool inGame,
-            bool inBanned,
-            Role role)
+            bool inBanned)
         {
             Name = name;
             DisplayName = displayName;
             Password = password;
             InGame = inGame;
             InBanned = inBanned;
-            Role = role;
-            CreateDate = DateTime.Now;
+            CreateDate = DateTime.UtcNow;
         }
 
         public void Update(
@@ -62,16 +65,19 @@ namespace CrealutionServer.Domain.Entities
             string password,
             bool inGame,
             bool inBanned,
-            DateTime lastLoginDate,
-            Role role)
+            DateTime lastLoginDate)
         {
             Name = name;
             DisplayName = displayName;
             Password = password;
             InGame = inGame;
             InBanned = inBanned;
-            Role = role;
             LastLoginDate = lastLoginDate;
+        }
+
+        public void SetRoles(ICollection<Role> roles)
+        {
+            Roles = roles;
         }
     }
 }

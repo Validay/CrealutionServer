@@ -1,20 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CrealutionServer.Models.Dtos.StatisticTypes
+namespace CrealutionServer.Models.Dtos.Roles
 {
     /// <summary>
-    /// Model for update statistic type
+    /// Model for update role
     /// </summary>
-    public class StatisticTypeUpdateDto
+    public class RoleUpdateDto
     {
         /// <summary>
-        /// Id statistic type
+        /// Id role
         /// </summary>
         [Required]
         public long Id { get; set; }
 
         /// <summary>
-        /// New name statistic type
+        /// New name role
         /// </summary>
         [Required]
         [MaxLength(255)]
