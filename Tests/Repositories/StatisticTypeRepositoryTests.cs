@@ -130,6 +130,66 @@ namespace CrealutionServer.Tests.Repositories
         }
 
         [Fact]
+        public async Task Create_DuplicateName_ShouldThrowCrealutionEntityValidateException()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<CrealutionDb>()
+                .UseInMemoryDatabase("fakeDbCreateDuplicateName")
+                .Options;
+            var createDto = new StatisticTypeCreateDto
+            {
+                Name = "New statistic type"
+            };
+
+            // Act
+            using (var fakeDb = new CrealutionDb(options))
+            {
+                var repository = new StatisticTypeRepository(
+                    TestMapper.Mapper,
+                    fakeDb);
+                var result = await repository.Create(createDto);
+
+                // Assert
+                await Assert.ThrowsAsync<CrealutionEntityValidateException>(() => repository.Create(createDto));
+            }
+        }
+
+        [Fact]
+        public async Task Update_DuplicateName_ShouldThrowCrealutionEntityValidateException()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<CrealutionDb>()
+                .UseInMemoryDatabase("fakeDbUpdateDuplicateName")
+                .Options;
+            var createDto1 = new StatisticTypeCreateDto
+            {
+                Name = "Name statistic type 1"
+            };
+            var createDto2 = new StatisticTypeCreateDto
+            {
+                Name = "Name statistic type 2"
+            };
+            var updateDto = new StatisticTypeUpdateDto
+            {
+                Id = 1, 
+                Name = "Name statistic type 2"
+            };
+
+            // Act
+            using (var fakeDb = new CrealutionDb(options))
+            {
+                var repository = new StatisticTypeRepository(
+                    TestMapper.Mapper,
+                    fakeDb);
+                await repository.Create(createDto1);
+                await repository.Create(createDto2);
+
+                // Assert
+                await Assert.ThrowsAsync<CrealutionEntityValidateException>(() => repository.Update(updateDto));
+            }
+        }
+
+        [Fact]
         public async Task Update_ShouldUpdateEntity()
         {
             // Arrange
@@ -142,7 +202,7 @@ namespace CrealutionServer.Tests.Repositories
             };
             var updateDto = new StatisticTypeUpdateDto
             {
-                Id = 1, 
+                Id = 1,
                 Name = "New name statistic type"
             };
 

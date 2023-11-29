@@ -7,9 +7,11 @@ namespace CrealutionServer.Domain.Entities
     public class StatisticType
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; private set; }
 
+        [Key]
         [Required]
         [StringLength(255)]
         public string Name { get; private set; }

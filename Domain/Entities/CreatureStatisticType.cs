@@ -6,6 +6,7 @@ namespace CrealutionServer.Domain.Entities
     public class CreatureStatisticType
     {
         [Key]
+        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; private set; }
 

@@ -1,34 +1,34 @@
 ﻿using CrealutionServer.Domain.Entities;
 using CrealutionServer.Configurations.Mapping.Interfaces;
-using CrealutionServer.Models.Dtos.StatisticTypes;
 using System.Collections.Generic;
 using System.Linq;
+using CrealutionServer.Models.Dtos.Roles;
 
 namespace CrealutionServer.Configurations.Mapping.Mappers
 {
-    public class StatisticTypeMap : IMap
+    public class RoleMap : IMap
     {
         public void Map(CrealutionMappingProfile profile)
         {
-            profile.CreateMap<ICollection<StatisticType>, StatisticTypeGetAllDto>()
-                .ForMember(dest => dest.StatisticTypeDtos, opt => opt
-                    .MapFrom(src => src.Select(statisticType => new StatisticTypeDto
+            profile.CreateMap<ICollection<Role>, RoleGetAllDto>()
+                .ForMember(dest => dest.Roles, opt => opt
+                    .MapFrom(src => src.Select(statisticType => new RoleDto
                     {
                         Id = statisticType.Id,
                         Name = statisticType.Name
                     })));
 
-            profile.CreateMap<StatisticType, StatisticTypeDto>()
+            profile.CreateMap<Role, RoleDto>()
                 .ForMember(dest => dest.Id, opt => opt
                     .MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt
                     .MapFrom(src => src.Name));
 
-            profile.CreateMap<StatisticTypeCreateDto, StatisticType>()
+            profile.CreateMap<RoleCreateDto, Role>()
                 .ForMember(dest => dest.Name, opt => opt
                     .MapFrom(src => src.Name));
 
-            profile.CreateMap<StatisticTypeUpdateDto, StatisticType>()
+            profile.CreateMap<RoleUpdateDto, Role>()
                 .ForMember(dest => dest.Id, opt => opt
                     .MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt

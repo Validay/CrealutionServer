@@ -12,9 +12,17 @@ namespace CrealutionServer.Configurations.Database.EntityConfigurations
                 .HasKey(k => k.Id);
 
             modelBuilder.Entity<Role>()
+                .HasIndex(k => k.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Role>()
                 .Property(p => p.Name)
                 .HasMaxLength(255)
                 .IsRequired();
+
+            modelBuilder.Entity<Role>()
+               .HasMany(x => x.Accounts)
+               .WithMany(x => x.Roles);
         }
     }
 }

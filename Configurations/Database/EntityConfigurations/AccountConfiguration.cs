@@ -12,6 +12,10 @@ namespace CrealutionServer.Configurations.Database.EntityConfigurations
                 .HasKey(k => k.Id);
 
             modelBuilder.Entity<Account>()
+                .HasIndex(k => k.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Account>()
                 .Property(p => p.Name)
                 .HasMaxLength(255)
                 .IsRequired();
@@ -27,9 +31,8 @@ namespace CrealutionServer.Configurations.Database.EntityConfigurations
                 .IsRequired();
 
             modelBuilder.Entity<Account>()
-                .HasOne(p => p.Role)
-                .WithMany(p => p.Accounts)
-                .HasForeignKey(k => k.RoleId);
+                .HasMany(x => x.Roles)
+                .WithMany(x => x.Accounts);
         }
     }
 }

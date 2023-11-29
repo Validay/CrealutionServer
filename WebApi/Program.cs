@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using System;
@@ -14,6 +15,9 @@ using System.IO;
 using System.Collections.Generic;
 using CrealutionServer.Infrastructure.Middlewares;
 using CrealutionServer.Configurations.Mapping;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using CrealutionServer.Configurations.Authentication;
 
 namespace CrealutionServer.WebApi
 {
@@ -37,7 +41,7 @@ namespace CrealutionServer.WebApi
                     Description = "Crealution server WebAPI",
                     Contact = new OpenApiContact
                     {
-                        Email = builder.Configuration.GetSection("Contacts")["Email"]
+                        Email = builder.Configuration["Contacts:Email"]
                     }
                 });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -65,15 +69,47 @@ namespace CrealutionServer.WebApi
                 });
             });
 
+            var authenticationOptions = new AuthenticationOptions(
+                issuer: builder.Configuration["Authentication:ValidIssuer"],
+                audience: builder.Configuration["Authentication:ValidAudience"],
+                secretKey: builder.Configuration["Authentication:SecretKey"],
+                lifeTime: 10);
+
+            builder.Services.AddSingleton(authenticationOptions);
+            builder.Services.AddAuthentication(options => 
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = authenticationOptions.Issuer,
+                        ValidAudience = authenticationOptions.Audience,
+                        IssuerSigningKey = authenticationOptions.GetSymmetricSecurityKey()
+                    };
+                });
+
+            builder.Services.AddAuthorization();
             builder.Services.AddAutoMapper(typeof(CrealutionMappingProfile));
             builder.Services.AddDbContext<CrealutionDb>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IStatisticTypeRepository, StatisticTypeRepository>();
+            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration.GetSection("ElsasticSearch")["Url"]))
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration["ElsasticSearch:Url"]))
                 {
                     AutoRegisterTemplate = true,
                 })
@@ -101,6 +137,7 @@ namespace CrealutionServer.WebApi
             
             app.UseRouting();
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
             app.UseMiddleware<CrealutionErrorHandlingMiddleware>();

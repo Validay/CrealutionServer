@@ -1,5 +1,5 @@
 ﻿using CrealutionServer.Infrastructure.Repositories.Interfaces;
-using CrealutionServer.Models.Dtos.StatisticTypes;
+using CrealutionServer.Models.Dtos.Roles;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -7,78 +7,78 @@ namespace CrealutionServer.WebApi.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class StatisticTypeController : ControllerBase
+    public class RoleController : ControllerBase
     {
-        private IStatisticTypeRepository _statisticTypeRepository;
+        private IRoleRepository _roleRepository;
 
-        public StatisticTypeController(IStatisticTypeRepository statisticTypeRepository)
+        public RoleController(IRoleRepository roleRepository)
         {
-            _statisticTypeRepository = statisticTypeRepository;
+            _roleRepository = roleRepository;
         }
 
         /// <summary>
-        /// Get all statistic types
+        /// Get all roles
         /// </summary>
-        /// <returns>All statistic type dtos</returns>
+        /// <returns>All role dtos</returns>
         /// <response code="200">Successful response</response>      
         /// <response code="401">Not authorized</response> 
         /// <response code="500">Internal error</response>
         [HttpGet]
-        public async Task<StatisticTypeGetAllDto> GetAll()
+        public async Task<RoleGetAllDto> GetAll()
         {
-            return await _statisticTypeRepository.GetAll();
+            return await _roleRepository.GetAll();
         }
 
         /// <summary>
-        /// Get statistic type by id
+        /// Get role by id
         /// </summary>
-        /// <returns>Statistic type dto</returns>
+        /// <returns>Role dto</returns>
         /// <param name="id">Id statistic type</param>
         /// <response code="200">Successful response</response>
         /// <response code="401">Not authorized</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Internal error</response>
         [HttpGet("{id}")]
-        public async Task<StatisticTypeDto> GetById(long id)
+        public async Task<RoleDto> GetById(long id)
         {
-            return await _statisticTypeRepository.GetById(id);
+            return await _roleRepository.GetById(id);
         }
 
         /// <summary>
-        /// Create new statistic type
+        /// Create new role
         /// </summary>
-        /// <returns>Statistic type dto</returns>
-        /// <param name="createDto">New statistic type</param>
+        /// <returns>Role dto</returns>
+        /// <param name="createDto">New role</param>
         /// <response code="200">Successful response</response>
         /// <response code="400">Bad request</response>
         /// <response code="401">Not authorized</response>
         /// <response code="500">Internal error</response>
         [HttpPost]
-        public async Task<StatisticTypeDto> Create([FromBody] StatisticTypeCreateDto createDto)
+        public async Task<RoleDto> Create([FromBody] RoleCreateDto createDto)
         {
-            return await _statisticTypeRepository.Create(createDto);
+            return await _roleRepository.Create(createDto);
         }
 
         /// <summary>
-        /// Update statistic type
+        /// Update role
         /// </summary>
-        /// <returns>Statistic type dto</returns>
-        /// <param name="updateDto">Update model statistic type</param>
+        /// <returns>Role dto</returns>
+        /// <param name="updateDto">Update model role</param>
         /// <response code="200">Successful response</response>
         /// <response code="400">Bad request</response>
         /// <response code="401">Not authorized</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Internal error</response>
         [HttpPut]
-        public async Task<StatisticTypeDto> Update([FromBody] StatisticTypeUpdateDto updateDto)
+        public async Task<RoleDto> Update([FromBody] RoleUpdateDto updateDto)
         {
-            return await _statisticTypeRepository.Update(updateDto);
+            return await _roleRepository.Update(updateDto);
         }
 
         /// <summary>
-        /// Delete statistic type
+        /// Delete role
         /// </summary>
-        /// <param name="id">Id statistic type</param>
+        /// <param name="id">Id role</param>
         /// <response code="204">Successful response, no content</response>
         /// <response code="401">Not authorized</response>
         /// <response code="404">Not found</response>
@@ -86,7 +86,7 @@ namespace CrealutionServer.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            await _statisticTypeRepository.Delete(id);
+            await _roleRepository.Delete(id);
 
             return NoContent();
         }
