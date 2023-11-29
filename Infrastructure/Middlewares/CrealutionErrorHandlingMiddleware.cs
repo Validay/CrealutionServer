@@ -45,7 +45,7 @@ namespace CrealutionServer.Infrastructure.Middlewares
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                 error = "Not found";
             }
-            else if (exception is CrealutionEntityValidateError)
+            else if (exception is CrealutionEntityValidateException)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 error = "Validate error";

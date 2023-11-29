@@ -64,7 +64,7 @@ namespace CrealutionServer.Infrastructure.Repositories
         /// </summary>
         /// <param name="createDto">The data to create the Role entity.</param>
         /// <returns>The created Role entity.</returns>
-        /// <exception cref="CrealutionEntityValidateError">Thrown if a duplicate role name is detected.</exception>
+        /// <exception cref="CrealutionEntityValidateException">Thrown if a duplicate role name is detected.</exception>
         public async Task<RoleDto> Create(RoleCreateDto createDto)
         {
             var entity = _mapper.Map<Role>(createDto);
@@ -72,7 +72,7 @@ namespace CrealutionServer.Infrastructure.Repositories
             var entryEntity = await _context.Roles.AddAsync(entity);
 
             if (dublicate != null)
-                throw new CrealutionEntityValidateError($"{nameof(Role)} name already exist");
+                throw new CrealutionEntityValidateException($"{nameof(Role)} name already exist");
 
             await _context.SaveChangesAsync();
 
@@ -85,7 +85,7 @@ namespace CrealutionServer.Infrastructure.Repositories
         /// <param name="updateDto">The data to update the Role entity.</param>
         /// <returns>The updated Role entity.</returns>
         /// <exception cref="CrealutionEntityNotFound">Thrown when the Role entity is not found.</exception>
-        /// <exception cref="CrealutionEntityValidateError">Thrown if a duplicate role name is detected.</exception>
+        /// <exception cref="CrealutionEntityValidateException">Thrown if a duplicate role name is detected.</exception>
         public async Task<RoleDto> Update(RoleUpdateDto updateDto)
         {
             var entity = await _context.Roles
@@ -96,7 +96,7 @@ namespace CrealutionServer.Infrastructure.Repositories
                 throw new CrealutionEntityNotFound($"{nameof(Role)} has been not found");
 
             if (dublicate != null)
-                throw new CrealutionEntityValidateError($"{nameof(Role)} name already exist");
+                throw new CrealutionEntityValidateException($"{nameof(Role)} name already exist");
 
             _mapper.Map(updateDto, entity);
             await _context.SaveChangesAsync();

@@ -60,7 +60,7 @@ namespace CrealutionServer.Infrastructure.Repositories
                 throw new CrealutionEntityNotFound($"{nameof(Account)} has been not found");
 
             if (account.Password != loginDto.Password)
-                throw new CrealutionEntityValidateError($"{nameof(account.Name)} incorrect password");
+                throw new CrealutionEntityValidateException($"{nameof(account.Name)} incorrect password");
 
             var claims = new List<Claim>
             {
@@ -101,7 +101,7 @@ namespace CrealutionServer.Infrastructure.Repositories
         /// </summary>
         /// <param name="registrationDto">DTO containing user registration details.</param>
         /// <returns>DTO containing information for the registered user account.</returns>
-        /// <exception cref="CrealutionEntityValidateError">Thrown if a duplicate account name is detected.</exception>
+        /// <exception cref="CrealutionEntityValidateException">Thrown if a duplicate account name is detected.</exception>
         public async Task<AccountDto> Registration(AccountRegistrationDto registrationDto)
         {
             var entity = _mapper.Map<Account>(registrationDto);
@@ -109,7 +109,7 @@ namespace CrealutionServer.Infrastructure.Repositories
             var entryEntiry = await _context.Accounts.AddAsync(entity);
 
             if (dublicate != null)
-                throw new CrealutionEntityValidateError($"{nameof(Account)} name already exist");
+                throw new CrealutionEntityValidateException($"{nameof(Account)} name already exist");
 
             await _context.SaveChangesAsync();
 
@@ -191,7 +191,7 @@ namespace CrealutionServer.Infrastructure.Repositories
         /// </summary>
         /// <param name="createDto">DTO containing user account creation details.</param>
         /// <returns>DTO containing information for the created user account.</returns>
-        /// <exception cref="CrealutionEntityValidateError">Thrown if a duplicate account name is detected.</exception>
+        /// <exception cref="CrealutionEntityValidateException">Thrown if a duplicate account name is detected.</exception>
         /// <exception cref="CrealutionEntityNotFound">Thrown if roles with specified IDs are not found.</exception>
         public async Task<AccountDto> Create(AccountCreateDto createDto)
         {
@@ -202,7 +202,7 @@ namespace CrealutionServer.Infrastructure.Repositories
                 .ToListAsync();
 
             if (dublicate != null)
-                throw new CrealutionEntityValidateError($"{nameof(Account)} name already exist");
+                throw new CrealutionEntityValidateException($"{nameof(Account)} name already exist");
 
             if (roles.Count != createDto.RoleIds.Count)
             {
@@ -227,7 +227,7 @@ namespace CrealutionServer.Infrastructure.Repositories
         /// <param name="updateDto">DTO containing user account update details.</param>
         /// <returns>DTO containing information for the updated user account.</returns>
         /// <exception cref="CrealutionEntityNotFound">Thrown if the user account or roles are not found.</exception>
-        /// <exception cref="CrealutionEntityValidateError">Thrown if a duplicate account name is detected.</exception>
+        /// <exception cref="CrealutionEntityValidateException">Thrown if a duplicate account name is detected.</exception>
         public async Task<AccountDto> Update(AccountUpdateDto updateDto)
         {
             var entity = await _context.Accounts
@@ -243,7 +243,7 @@ namespace CrealutionServer.Infrastructure.Repositories
                 throw new CrealutionEntityNotFound($"{nameof(Account)} has been not found");
 
             if (dublicate != null)
-                throw new CrealutionEntityValidateError($"{nameof(Account)} name already exist");
+                throw new CrealutionEntityValidateException($"{nameof(Account)} name already exist");
 
             if (roles.Count != updateDto.RoleIds.Count)
             {

@@ -6,18 +6,18 @@ namespace CrealutionServer.Infrastructure.Exceptions
     /// Exception thrown when an entity already exist
     /// </summary>
     [Serializable]
-    public class CrealutionEntityValidateError: Exception
+    public class CrealutionEntityValidateException: Exception
     {
-        public CrealutionEntityValidateError()
+        public CrealutionEntityValidateException()
         { 
         }
 
-        public CrealutionEntityValidateError(string message) 
+        public CrealutionEntityValidateException(string message) 
             : base(message)
         {
         }
 
-        public CrealutionEntityValidateError(string message, Exception innerException)
+        public CrealutionEntityValidateException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
