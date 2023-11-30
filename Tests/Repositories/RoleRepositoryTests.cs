@@ -3,13 +3,13 @@ using System.Threading.Tasks;
 using CrealutionServer.Infrastructure.Database;
 using CrealutionServer.Infrastructure.Exceptions;
 using CrealutionServer.Infrastructure.Repositories;
-using CrealutionServer.Models.Dtos.StatisticTypes;
+using CrealutionServer.Models.Dtos.Roles;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace CrealutionServer.Tests.Repositories
 {
-    public class StatisticTypeRepositoryTests
+    public class RoleRepositoryTests
     {
         [Fact]
         public async Task GetAll_ShouldReturnAllEntities()
@@ -18,13 +18,13 @@ namespace CrealutionServer.Tests.Repositories
             var options = new DbContextOptionsBuilder<CrealutionDb>()
                .UseInMemoryDatabase("fakeDbGetAll")
                .Options;
-            var entities = new List<StatisticTypeCreateDto>
+            var entities = new List<RoleCreateDto>
             {
-                new StatisticTypeCreateDto
+                new RoleCreateDto
                 {
                     Name = "name_1" 
                 },
-                new StatisticTypeCreateDto
+                new RoleCreateDto
                 {
                     Name = "name_2"
                 }
@@ -33,7 +33,7 @@ namespace CrealutionServer.Tests.Repositories
             // Act
             using (var fakeDb = new CrealutionDb(options))
             {
-                var repository = new StatisticTypeRepository(
+                var repository = new RoleRepository(
                     TestMapper.Mapper,
                     fakeDb);
 
@@ -46,7 +46,7 @@ namespace CrealutionServer.Tests.Repositories
                 Assert.NotNull(result);
                 Assert.Equal(
                     entities.Count,
-                    result.StatisticTypeDtos.Count);
+                    result.Roles.Count);
             }
         }
 
@@ -57,7 +57,7 @@ namespace CrealutionServer.Tests.Repositories
             var options = new DbContextOptionsBuilder<CrealutionDb>()
               .UseInMemoryDatabase("fakeDbGetById")
               .Options;
-            var entity = new StatisticTypeCreateDto 
+            var entity = new RoleCreateDto
             { 
                 Name = "name_1" 
             };
@@ -65,7 +65,7 @@ namespace CrealutionServer.Tests.Repositories
             // Act
             using (var fakeDb = new CrealutionDb(options))
             {
-                var repository = new StatisticTypeRepository(
+                var repository = new RoleRepository(
                     TestMapper.Mapper,
                     fakeDb);
                 var result = await repository.Create(entity);
@@ -89,13 +89,13 @@ namespace CrealutionServer.Tests.Repositories
             // Act
             using (var fakeDb = new CrealutionDb(options))
             {
-                var repository = new StatisticTypeRepository(
+                var repository = new RoleRepository(
                     TestMapper.Mapper,
                     fakeDb);
 
-                await repository.Create(new StatisticTypeCreateDto 
+                await repository.Create(new RoleCreateDto 
                 { 
-                    Name = "name_1"
+                    Name = "name_1" 
                 });
 
                 // Assert
@@ -110,15 +110,15 @@ namespace CrealutionServer.Tests.Repositories
             var options = new DbContextOptionsBuilder<CrealutionDb>()
                 .UseInMemoryDatabase("fakeDbCreate")
                 .Options;         
-            var createDto = new StatisticTypeCreateDto
+            var createDto = new RoleCreateDto
             {
-                Name = "New statistic type"
+                Name = "New role"
             };
 
             // Act
             using (var fakeDb = new CrealutionDb(options))
             {
-                var repository = new StatisticTypeRepository(
+                var repository = new RoleRepository(
                     TestMapper.Mapper,
                     fakeDb);
                 var result = await repository.Create(createDto);
@@ -138,15 +138,15 @@ namespace CrealutionServer.Tests.Repositories
             var options = new DbContextOptionsBuilder<CrealutionDb>()
                 .UseInMemoryDatabase("fakeDbCreateDuplicateName")
                 .Options;
-            var createDto = new StatisticTypeCreateDto
+            var createDto = new RoleCreateDto
             {
-                Name = "New statistic type"
+                Name = "New role"
             };
 
             // Act
             using (var fakeDb = new CrealutionDb(options))
             {
-                var repository = new StatisticTypeRepository(
+                var repository = new RoleRepository(
                     TestMapper.Mapper,
                     fakeDb);
                 var result = await repository.Create(createDto);
@@ -163,24 +163,24 @@ namespace CrealutionServer.Tests.Repositories
             var options = new DbContextOptionsBuilder<CrealutionDb>()
                 .UseInMemoryDatabase("fakeDbUpdateDuplicateName")
                 .Options;
-            var createDto1 = new StatisticTypeCreateDto
+            var createDto1 = new RoleCreateDto
             {
-                Name = "Name statistic type 1"
+                Name = "Name role 1"
             };
-            var createDto2 = new StatisticTypeCreateDto
+            var createDto2 = new RoleCreateDto
             {
-                Name = "Name statistic type 2"
+                Name = "Name role 2"
             };
-            var updateDto = new StatisticTypeUpdateDto
+            var updateDto = new RoleUpdateDto
             {
                 Id = 1, 
-                Name = "Name statistic type 2"
+                Name = "Name role 2"
             };
 
             // Act
             using (var fakeDb = new CrealutionDb(options))
             {
-                var repository = new StatisticTypeRepository(
+                var repository = new RoleRepository(
                     TestMapper.Mapper,
                     fakeDb);
 
@@ -199,20 +199,20 @@ namespace CrealutionServer.Tests.Repositories
             var options = new DbContextOptionsBuilder<CrealutionDb>()
                 .UseInMemoryDatabase("fakeDbUpdate")
                 .Options;
-            var createDto = new StatisticTypeCreateDto
+            var createDto = new RoleCreateDto
             {
-                Name = "Name statistic type"
+                Name = "Name role"
             };
-            var updateDto = new StatisticTypeUpdateDto
+            var updateDto = new RoleUpdateDto
             {
                 Id = 1,
-                Name = "New name statistic type"
+                Name = "New name role"
             };
 
             // Act
             using (var fakeDb = new CrealutionDb(options))
             {
-                var repository = new StatisticTypeRepository(
+                var repository = new RoleRepository(
                     TestMapper.Mapper,
                     fakeDb);
 
@@ -235,15 +235,15 @@ namespace CrealutionServer.Tests.Repositories
             var options = new DbContextOptionsBuilder<CrealutionDb>()
                 .UseInMemoryDatabase("fakeDbDelete")
                 .Options;
-            var createDto = new StatisticTypeCreateDto
+            var createDto = new RoleCreateDto
             {
-                Name = "Name statistic type"
+                Name = "Name role"
             };
 
             // Act
             using (var fakeDb = new CrealutionDb(options))
             {
-                var repository = new StatisticTypeRepository(
+                var repository = new RoleRepository(
                     TestMapper.Mapper,
                     fakeDb);
 
