@@ -375,6 +375,7 @@ namespace CrealutionServer.Tests.Repositories
                     fakeDb);
                 var roleRepository = new RoleRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await roleRepository.Create(createRoleDto);

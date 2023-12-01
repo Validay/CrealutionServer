@@ -35,6 +35,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new StatisticTypeRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await repository.Create(entities[0]);
@@ -67,6 +68,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new StatisticTypeRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
                 var result = await repository.Create(entity);
 
@@ -91,6 +93,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new StatisticTypeRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await repository.Create(new StatisticTypeCreateDto 
@@ -120,6 +123,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new StatisticTypeRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
                 var result = await repository.Create(createDto);
 
@@ -148,6 +152,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new StatisticTypeRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
                 var result = await repository.Create(createDto);
 
@@ -182,6 +187,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new StatisticTypeRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await repository.Create(createDto1);
@@ -214,6 +220,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new StatisticTypeRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await repository.Create(createDto);
@@ -245,6 +252,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new StatisticTypeRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await repository.Create(createDto);

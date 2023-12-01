@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using CrealutionServer.Models.Dtos.Roles;
 using CrealutionServer.Infrastructure.Database;
 using CrealutionServer.Infrastructure.Exceptions;
 using CrealutionServer.Infrastructure.Repositories;
-using CrealutionServer.Models.Dtos.Roles;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
@@ -35,6 +35,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new RoleRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await repository.Create(entities[0]);
@@ -67,6 +68,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new RoleRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
                 var result = await repository.Create(entity);
 
@@ -91,6 +93,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new RoleRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await repository.Create(new RoleCreateDto 
@@ -120,6 +123,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new RoleRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
                 var result = await repository.Create(createDto);
 
@@ -148,6 +152,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new RoleRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
                 var result = await repository.Create(createDto);
 
@@ -182,6 +187,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new RoleRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await repository.Create(createDto1);
@@ -214,6 +220,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new RoleRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await repository.Create(createDto);
@@ -245,6 +252,7 @@ namespace CrealutionServer.Tests.Repositories
             {
                 var repository = new RoleRepository(
                     TestMapper.Mapper,
+                    TestCacheService.GetTestCacheService(),
                     fakeDb);
 
                 await repository.Create(createDto);

@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Identity;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using System;
@@ -18,6 +17,10 @@ using CrealutionServer.Configurations.Mapping;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using CrealutionServer.Configurations.Authentication;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.Extensions.Caching.Distributed;
+using CrealutionServer.Infrastructure.Services;
+using CrealutionServer.Infrastructure.Services.Interfaces;
 
 namespace CrealutionServer.WebApi
 {
@@ -102,10 +105,12 @@ namespace CrealutionServer.WebApi
             builder.Services.AddAutoMapper(typeof(CrealutionMappingProfile));
             builder.Services.AddDbContext<CrealutionDb>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-            builder.Services.AddScoped<IStatisticTypeRepository, StatisticTypeRepository>();
-            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-            
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = builder.Configuration["Redis:Url"];
+            });
+            builder.Services.AddSingleton<IDistributedCache, RedisCache>();
+
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
@@ -120,6 +125,11 @@ namespace CrealutionServer.WebApi
             {
                 loggingBuilder.AddSerilog();
             });
+
+            builder.Services.AddScoped<ICacheService, CacheService>();
+            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+            builder.Services.AddScoped<IStatisticTypeRepository, StatisticTypeRepository>();
+            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 
             var app = builder.Build();
 
