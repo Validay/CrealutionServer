@@ -5,6 +5,7 @@
 
 # Secret for docker
 *.env
+*appsettings.json
 
 # User-specific files
 *.rsuser
