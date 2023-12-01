@@ -4,6 +4,8 @@ services:
   webapp:
     container_name: 'webapi'
     image: webapi
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,28 +13,32 @@ services:
       - "8080:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings__DefaultConnection=host=postgres;Port=5432;Database=CrealutionDb;User Id=Validay;Password=Kepnar7878;"
+      - ${ConnectionString}
 
   postgres:
-    image: postgres
     container_name: postgres
+    image: postgres   
+    env_file:
+      - .env
     restart: always
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=Validay
-      - POSTGRES_PASSWORD=Kepnar7878
-      - POSTGRES_DB=CrealutionDb
+      - POSTGRES_USER=${PostgresUser}
+      - POSTGRES_PASSWORD=${PostgresPassword}
+      - POSTGRES_DB=${PostgresDbName}
     volumes:
       - stackup_postgres_data:/var/lib/postgresql/data/
 
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4:6.17
+    env_file:
+      - .env
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: validaypromabe@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: Kepnar7878
+      PGADMIN_DEFAULT_EMAIL: ${PgAdminEmail}
+      PGADMIN_DEFAULT_PASSWORD: ${PgAdminPassword}
       PGADMIN_LISTEN_PORT: 80
     ports:
       - "8009:80"
