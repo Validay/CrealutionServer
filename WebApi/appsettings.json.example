@@ -1,17 +1,17 @@
 {
   "Authentication": {
-    "ValidIssuer": "CrealutionServer",
-    "ValidAudience": "CrealutionClient",
-    "SecretKey": "Crealution_7878_Kepnar7878_7878_Crealution"
+    "ValidIssuer": "Issuer",
+    "ValidAudience": "Audience",
+    "SecretKey": "Key"
   },
   "Contacts": {
-    "Email": "validaypromabe@gmail.com"
+    "Email": "email@email.com"
   },
   "ConnectionStrings": {
-    "DefaultConnection": "Server=postgres;port=5432;Database=CrealutionDb;User Id=Validay;Password=Kepnar7878"
+    "DefaultConnection": "ConnectionStrings"
   },
   "ElsasticSearch": {
-    "Url": "http://localhost:9200"
+    "Url": "ElsasticSearchUrl"
   },
   "Logging": {
     "LogLevel": {
