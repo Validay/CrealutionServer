@@ -4,18 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrealutionServer.Configurations.Database.EntityConfigurations
 {
-    public class StatisticTypeConfiguration : IEntityConfiguration
+    public class TerrariumConfiguration : IEntityConfiguration
     {
         public void Configure(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StatisticType>()
+            modelBuilder.Entity<Terrarium>()
                 .HasKey(k => k.Id);
 
-            modelBuilder.Entity<StatisticType>()
-                .HasIndex(k => k.Name)
-                .IsUnique();
-
-            modelBuilder.Entity<StatisticType>()
+            modelBuilder.Entity<Terrarium>()
                 .Property(p => p.Name)
                 .HasMaxLength(255)
                 .IsRequired();

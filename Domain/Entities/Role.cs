@@ -25,9 +25,9 @@ namespace CrealutionServer.Domain.Entities
         public Role(
             long id, 
             string name)
+            : this(name)
         {
             Id = id;
-            Name = name;
         }
 
         public Role(string name)

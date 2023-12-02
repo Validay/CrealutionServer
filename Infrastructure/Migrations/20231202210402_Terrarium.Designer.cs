@@ -3,6 +3,7 @@ using System;
 using CrealutionServer.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CrealutionServer.Infrastructure.Migrations
 {
     [DbContext(typeof(CrealutionDb))]
-    partial class CrealutionDbModelSnapshot : ModelSnapshot
+    [Migration("20231202210402_Terrarium")]
+    partial class Terrarium
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

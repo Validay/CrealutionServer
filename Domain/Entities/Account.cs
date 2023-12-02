@@ -39,9 +39,32 @@ namespace CrealutionServer.Domain.Entities
         [Required]
         public virtual ICollection<Role> Roles { get; private set; }
 
+        [Required]
+        public virtual ICollection<Terrarium> Terrariums { get; private set; }
+
+        [Required]
+        public virtual ICollection<AccountItemType> AccountItemTypes { get; private set; }
+
         protected Account()
         {
             CreateDate = DateTime.UtcNow;
+        }
+
+        public Account(
+            long id,
+            string name,
+            string displayName,
+            string password,
+            bool inGame,
+            bool inBanned)
+            : this(
+                name,
+                displayName,
+                password,
+                inGame,
+                inBanned)
+        {
+            Id = id;
         }
 
         public Account(
@@ -78,6 +101,16 @@ namespace CrealutionServer.Domain.Entities
         public void SetRoles(ICollection<Role> roles)
         {
             Roles = roles;
+        }
+
+        public void SetTerrariums(ICollection<Terrarium> terrariums)
+        {
+            Terrariums = terrariums;
+        }
+
+        public void SetAccountItemTypes(ICollection<AccountItemType> accountItemTypes)
+        {
+            AccountItemTypes = accountItemTypes;
         }
     }
 }

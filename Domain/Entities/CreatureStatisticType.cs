@@ -22,6 +22,17 @@ namespace CrealutionServer.Domain.Entities
         }
 
         public CreatureStatisticType(
+            long id,
+            string value,
+            StatisticType statisticType)
+            : this(
+                value,
+                statisticType)
+        {
+            Id = id;
+        }
+
+        public CreatureStatisticType(
             string value, 
             StatisticType statisticType)
         {
@@ -34,6 +45,11 @@ namespace CrealutionServer.Domain.Entities
             StatisticType statisticType)
         {
             Value = value;
+            StatisticType = statisticType;
+        }
+
+        public void SetStatisticType(StatisticType statisticType)
+        {
             StatisticType = statisticType;
         }
     }

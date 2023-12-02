@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CrealutionServer.Domain.Entities
 {
-    public class StatisticType
+    public class ItemType
     {
         [Key]
         [Required]
@@ -16,13 +16,13 @@ namespace CrealutionServer.Domain.Entities
         [StringLength(255)]
         public string Name { get; private set; }
 
-        public virtual ICollection<CreatureStatisticType> CreatureStatisticTypes { get; private set; }
+        public virtual ICollection<AccountItemType> AccountItemTypes { get; private set; }
 
-        protected StatisticType()
+        protected ItemType()
         {
         }
 
-        public StatisticType(
+        public ItemType(
             long id, 
             string name)
             : this(name)
@@ -30,7 +30,7 @@ namespace CrealutionServer.Domain.Entities
             Id = id;
         }
 
-        public StatisticType(string name)
+        public ItemType(string name)
         {
             Name = name;
         }
@@ -40,9 +40,9 @@ namespace CrealutionServer.Domain.Entities
             Name = name;
         }
 
-        public void SetCreatureStatisticTypes(ICollection<CreatureStatisticType> creatureStatisticTypes)
+        public void SetAccountItemTypes(ICollection<AccountItemType> accountItemTypes)
         {
-            CreatureStatisticTypes = creatureStatisticTypes;
+            AccountItemTypes = accountItemTypes;
         }
     }
 }

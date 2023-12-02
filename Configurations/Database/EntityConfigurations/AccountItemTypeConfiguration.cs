@@ -4,20 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrealutionServer.Configurations.Database.EntityConfigurations
 {
-    public class StatisticTypeConfiguration : IEntityConfiguration
+    public class AccountItemTypeConfiguration : IEntityConfiguration
     {
         public void Configure(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StatisticType>()
+            modelBuilder.Entity<AccountItemType>()
                 .HasKey(k => k.Id);
 
-            modelBuilder.Entity<StatisticType>()
-                .HasIndex(k => k.Name)
-                .IsUnique();
-
-            modelBuilder.Entity<StatisticType>()
-                .Property(p => p.Name)
-                .HasMaxLength(255)
+            modelBuilder.Entity<AccountItemType>()
+                .Property(p => p.Count)
                 .IsRequired();
         }
     }

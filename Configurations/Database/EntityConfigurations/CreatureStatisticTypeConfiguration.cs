@@ -9,7 +9,7 @@ namespace CrealutionServer.Configurations.Database.EntityConfigurations
         public void Configure(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CreatureStatisticType>()
-                .HasKey(k => k.Id);
+                .HasKey(k => k.Id);;
 
             modelBuilder.Entity<CreatureStatisticType>()
                 .HasOne(p => p.StatisticType)

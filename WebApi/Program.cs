@@ -126,6 +126,7 @@ namespace CrealutionServer.WebApi
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IStatisticTypeRepository, StatisticTypeRepository>();
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+            builder.Services.AddScoped<ITerrariumRepository, TerrariumRepository>();
 
             var app = builder.Build();
 

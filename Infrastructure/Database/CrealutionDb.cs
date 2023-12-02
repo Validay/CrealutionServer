@@ -10,9 +10,12 @@ namespace CrealutionServer.Infrastructure.Database
     public class CrealutionDb : DbContext
     {
         public virtual DbSet<StatisticType> StatisticTypes { get; set; }  
-        public virtual  DbSet<CreatureStatisticType> CreatureStatisticTypes { get; set; }
-        public virtual  DbSet<Role> Roles { get; set; }
-        public virtual  DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<CreatureStatisticType> CreatureStatisticTypes { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Terrarium> Terrariums { get; set; }
+        public virtual DbSet<ItemType> ItemTypes { get; set; }
+        public virtual DbSet<AccountItemType> AccountItemTypes { get; set; }
 
         protected CrealutionDb()
         {

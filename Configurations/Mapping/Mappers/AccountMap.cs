@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using CrealutionServer.Models.Dtos.Accounts;
 using CrealutionServer.Models.Dtos.Roles;
+using CrealutionServer.Models.Dtos.Terrariums;
+using CrealutionServer.Models.Dtos.AccountItemTypes;
+using CrealutionServer.Models.Dtos.ItemTypes;
 
 namespace CrealutionServer.Configurations.Mapping.Mappers
 {
@@ -13,17 +16,32 @@ namespace CrealutionServer.Configurations.Mapping.Mappers
         {
             profile.CreateMap<ICollection<Account>, AccountGetAllDto>()
                 .ForMember(dest => dest.Accounts, opt => opt
-                    .MapFrom(src => src.Select(account => new AccountDto
+                    .MapFrom(src => src.Select(a => new AccountDto
                     {
-                        Id = account.Id,
-                        Name = account.Name,
-                        DisplayName = account.DisplayName,
-                        CreateDate = account.CreateDate,
-                        InBanned = account.InBanned,
-                        Roles = account.Roles.Select(ar => new RoleDto
+                        Id = a.Id,
+                        Name = a.Name,
+                        DisplayName = a.DisplayName,
+                        CreateDate = a.CreateDate,
+                        InBanned = a.InBanned,
+                        Roles = a.Roles.Select(ar => new RoleDto
                         {
                             Id = ar.Id,
                             Name = ar.Name
+                        }).ToList(),
+                        Terrariums = a.Terrariums.Select(t => new TerrariumLightDto
+                        {
+                            Id = t.Id,
+                            Name = t.Name
+                        }).ToList(),
+                        AccountItemTypes = a.AccountItemTypes.Select(ait => new AccountItemTypeDto
+                        {
+                            Id = ait.Id,
+                            Count = ait.Count,
+                            ItemType = new ItemTypeDto
+                            {
+                                Id = ait.ItemType.Id,
+                                Name = ait.ItemType.Name
+                            }
                         }).ToList()
                     })));
 
@@ -43,13 +61,41 @@ namespace CrealutionServer.Configurations.Mapping.Mappers
                     {
                         Id = ar.Id,
                         Name = ar.Name
+                    }).ToList()))
+                .ForMember(dest => dest.Terrariums, opt => opt
+                    .MapFrom(src => src.Terrariums.Select(t => new TerrariumLightDto
+                    {
+                        Id = t.Id,
+                        Name = t.Name
+                    }).ToList()))
+                .ForMember(dest => dest.AccountItemTypes, opt => opt
+                    .MapFrom(src => src.AccountItemTypes.Select(ait => new AccountItemTypeDto
+                    {
+                        Id = ait.Id,
+                        Count = ait.Count,
+                        ItemType = new ItemTypeDto
+                        {
+                            Id = ait.ItemType.Id,
+                            Name = ait.ItemType.Name
+                        }
                     }).ToList()));
+
+            profile.CreateMap<Account, AccountLightDto>()
+                .ForMember(dest => dest.Id, opt => opt
+                    .MapFrom(src => src.Id))
+                .ForMember(dest => dest.DisplayName, opt => opt
+                    .MapFrom(src => src.DisplayName))
+                .ForMember(dest => dest.InBanned, opt => opt
+                    .MapFrom(src => src.InBanned))
+                .ForMember(dest => dest.CreateDate, opt => opt
+                    .MapFrom(src => src.CreateDate));
 
             profile.CreateMap<Account, AccountAuthorizedDto>()
                 .ForMember(dest => dest.Token, opt => opt.Ignore())
                 .ForMember(dest => dest.AccountInfo, opt => opt
                     .MapFrom(src => new AccountDto
                     {
+                        Id = src.Id,
                         Name = src.Name,
                         DisplayName = src.DisplayName,
                         CreateDate = src.CreateDate,
@@ -58,6 +104,21 @@ namespace CrealutionServer.Configurations.Mapping.Mappers
                         {
                             Id = ar.Id,
                             Name = ar.Name
+                        }).ToList(),
+                        Terrariums = src.Terrariums.Select(t => new TerrariumLightDto
+                        {
+                            Id = t.Id,
+                            Name = t.Name                             
+                        }).ToList(),
+                        AccountItemTypes = src.AccountItemTypes.Select(ait => new AccountItemTypeDto
+                        {
+                            Id = ait.Id,
+                            Count = ait.Count,
+                            ItemType = new ItemTypeDto
+                            {
+                                Id = ait.ItemType.Id,
+                                Name = ait.ItemType.Name
+                            }
                         }).ToList()
                     }));
 

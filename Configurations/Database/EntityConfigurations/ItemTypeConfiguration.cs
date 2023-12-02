@@ -4,21 +4,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrealutionServer.Configurations.Database.EntityConfigurations
 {
-    public class StatisticTypeConfiguration : IEntityConfiguration
+    public class ItemTypeConfiguration : IEntityConfiguration
     {
         public void Configure(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StatisticType>()
+            modelBuilder.Entity<ItemType>()
                 .HasKey(k => k.Id);
 
-            modelBuilder.Entity<StatisticType>()
+            modelBuilder.Entity<Role>()
                 .HasIndex(k => k.Name)
                 .IsUnique();
 
-            modelBuilder.Entity<StatisticType>()
+            modelBuilder.Entity<ItemType>()
                 .Property(p => p.Name)
                 .HasMaxLength(255)
                 .IsRequired();
+
+            modelBuilder.Entity<ItemType>()
+                .HasMany(x => x.AccountItemTypes)
+                .WithOne(x => x.ItemType)
+                .HasForeignKey(x => x.ItemTypeId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

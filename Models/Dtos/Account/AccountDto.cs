@@ -1,4 +1,6 @@
-﻿using CrealutionServer.Models.Dtos.Roles;
+﻿using CrealutionServer.Models.Dtos.AccountItemTypes;
+using CrealutionServer.Models.Dtos.Roles;
+using CrealutionServer.Models.Dtos.Terrariums;
 using System;
 using System.Collections.Generic;
 
@@ -38,5 +40,15 @@ namespace CrealutionServer.Models.Dtos.Accounts
         /// Account roles
         /// </summary>
         public List<RoleDto> Roles { get; set; }
+
+        /// <summary>
+        /// Account terrariums
+        /// </summary>
+        public List<TerrariumLightDto> Terrariums { get; set; }
+
+        /// <summary>
+        /// Account items and count
+        /// </summary>
+        public List<AccountItemTypeDto> AccountItemTypes { get; set; }
     }
 }

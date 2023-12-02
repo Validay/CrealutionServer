@@ -50,6 +50,8 @@ namespace CrealutionServer.Infrastructure.Repositories
         {
             var account = await _context.Accounts
                 .Include(x => x.Roles)
+                .Include(x => x.Terrariums)
+                .Include(x => x.AccountItemTypes)
                 .FirstOrDefaultAsync(x => x.Name == loginDto.Name);
             var secretKey = _authenticationOptions.GetSymmetricSecurityKey();
             var signingCredentials = new SigningCredentials(
@@ -126,6 +128,8 @@ namespace CrealutionServer.Infrastructure.Repositories
         {
             var entity = await _context.Accounts
                 .Include(x => x.Roles)
+                .Include(x => x.Terrariums)
+                .Include(x => x.AccountItemTypes)
                 .FirstOrDefaultAsync(x => x.Name == updateInfoDto.Name);
 
             if (entity == null)
@@ -145,6 +149,8 @@ namespace CrealutionServer.Infrastructure.Repositories
         {
             var entities = await _context.Accounts
                 .Include(x => x.Roles)
+                .Include(x => x.Terrariums)
+                .Include(x => x.AccountItemTypes)
                 .ToListAsync();
 
             return _mapper.Map<AccountGetAllDto>(entities);
@@ -160,6 +166,8 @@ namespace CrealutionServer.Infrastructure.Repositories
         {
             var entity = await _context.Accounts
                 .Include(x => x.Roles)
+                .Include(x => x.Terrariums)
+                .Include(x => x.AccountItemTypes)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity == null)
@@ -178,6 +186,8 @@ namespace CrealutionServer.Infrastructure.Repositories
         {
             var entity = await _context.Accounts
                 .Include(x => x.Roles)
+                .Include(x => x.Terrariums)
+                .Include(x => x.AccountItemTypes)
                 .FirstOrDefaultAsync(x => x.Name == name);
 
             if (entity == null)
@@ -232,6 +242,8 @@ namespace CrealutionServer.Infrastructure.Repositories
         {
             var entity = await _context.Accounts
                 .Include(x => x.Roles)
+                .Include(x => x.Terrariums)
+                .Include(x => x.AccountItemTypes)
                 .FirstOrDefaultAsync(x => x.Id == updateDto.Id);
             var dublicate = await _context.Accounts.FirstOrDefaultAsync(x => x.Name == updateDto.Name);
             var roles = await _context.Roles

@@ -29,7 +29,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-              .UseInMemoryDatabase("fakeDbLogin")
+              .UseInMemoryDatabase("fakeDbLogin_account")
               .Options;
             var entity = new AccountCreateDto
             {
@@ -71,7 +71,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-               .UseInMemoryDatabase("fakeDbGetAll")
+               .UseInMemoryDatabase("fakeDbGetAll_account")
                .Options;
             var entities = new List<AccountCreateDto>
             {
@@ -117,7 +117,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-              .UseInMemoryDatabase("fakeDbGetById")
+              .UseInMemoryDatabase("fakeDbGetById_account")
               .Options;
             var entity = new AccountCreateDto
             { 
@@ -149,7 +149,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-               .UseInMemoryDatabase("fakeDbGetByIdWithNonExistingId")
+               .UseInMemoryDatabase("fakeDbGetByIdWithNonExistingId_account")
                .Options;
 
             // Act
@@ -178,7 +178,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-                .UseInMemoryDatabase("fakeDbRegistration")
+                .UseInMemoryDatabase("fakeDbRegistration_account")
                 .Options;
             var registrationDto = new AccountRegistrationDto
             {
@@ -209,7 +209,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-                .UseInMemoryDatabase("fakeDbRegistrationDuplicateName")
+                .UseInMemoryDatabase("fakeDbRegistrationDuplicateName_account")
                 .Options;
             var registrationDto = new AccountRegistrationDto
             {
@@ -237,7 +237,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-                .UseInMemoryDatabase("fakeDbCreate")
+                .UseInMemoryDatabase("fakeDbCreate_account")
                 .Options;         
             var createDto = new AccountCreateDto
             {
@@ -269,7 +269,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-                .UseInMemoryDatabase("fakeDbCreateDuplicateName")
+                .UseInMemoryDatabase("fakeDbCreateDuplicateName_account")
                 .Options;
             var createDto = new AccountCreateDto
             {
@@ -298,7 +298,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-                .UseInMemoryDatabase("fakeDbUpdateDuplicateName")
+                .UseInMemoryDatabase("fakeDbUpdateDuplicateName_account")
                 .Options;
             var createDto1 = new AccountCreateDto
             {
@@ -344,7 +344,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-                .UseInMemoryDatabase("fakeDbUpdate")
+                .UseInMemoryDatabase("fakeDbUpdate_account")
                 .Options;
             var createRoleDto = new RoleCreateDto
             {
@@ -396,7 +396,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-                .UseInMemoryDatabase("fakeDbUpdateInfo")
+                .UseInMemoryDatabase("fakeDbUpdateInfo_account")
                 .Options;
             var createDto = new AccountCreateDto
             {
@@ -435,7 +435,7 @@ namespace CrealutionServer.Tests.Repositories
         {
             // Arrange
             var options = new DbContextOptionsBuilder<CrealutionDb>()
-                .UseInMemoryDatabase("fakeDbDelete")
+                .UseInMemoryDatabase("fakeDbDelete_account")
                 .Options;
             var createDto = new AccountCreateDto
             {

@@ -33,6 +33,18 @@ namespace CrealutionServer.Configurations.Database.EntityConfigurations
             modelBuilder.Entity<Account>()
                 .HasMany(x => x.Roles)
                 .WithMany(x => x.Accounts);
+
+            modelBuilder.Entity<Account>()
+               .HasMany(x => x.Terrariums)
+               .WithOne(x => x.Account)
+               .HasForeignKey(x => x.AccountId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Account>()
+                .HasMany(x => x.AccountItemTypes)
+                .WithOne(x => x.Account)
+                .HasForeignKey(x => x.AccountId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
