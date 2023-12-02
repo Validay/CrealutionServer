@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
-using Serilog;
-using Serilog.Sinks.Elasticsearch;
 using System;
 using CrealutionServer.Infrastructure.Repositories;
 using CrealutionServer.Infrastructure.Repositories.Interfaces;
@@ -21,6 +19,9 @@ using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Caching.Distributed;
 using CrealutionServer.Infrastructure.Services;
 using CrealutionServer.Infrastructure.Services.Interfaces;
+using NLog;
+using NLog.Web;
+using Microsoft.Extensions.Logging;
 
 namespace CrealutionServer.WebApi
 {
@@ -28,6 +29,13 @@ namespace CrealutionServer.WebApi
     {
         public static void Main(string[] args)
         {
+            var logger = LogManager
+                .Setup()
+                .LoadConfigurationFromAppSettings()
+                .GetCurrentClassLogger();
+
+            logger.Info("Start initialize crealution server...");
+
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
@@ -111,20 +119,8 @@ namespace CrealutionServer.WebApi
             });
             builder.Services.AddSingleton<IDistributedCache, RedisCache>();
 
-            Log.Logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration["ElsasticSearch:Url"]))
-                {
-                    AutoRegisterTemplate = true,
-                })
-                .CreateLogger();
-
-            builder.Services.AddSingleton(Log.Logger);
-            builder.Services.AddLogging(loggingBuilder =>
-            {
-                loggingBuilder.AddSerilog();
-            });
+            builder.Logging.ClearProviders();
+            builder.Host.UseNLog();
 
             builder.Services.AddScoped<ICacheService, CacheService>();
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();

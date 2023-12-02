@@ -4,18 +4,18 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using CrealutionServer.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Http;
-using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace CrealutionServer.Infrastructure.Middlewares
 {
     public class CrealutionErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger _logger;
+        private readonly ILogger<CrealutionErrorHandlingMiddleware> _logger;
 
         public CrealutionErrorHandlingMiddleware(
             RequestDelegate next, 
-            ILogger logger)
+            ILogger<CrealutionErrorHandlingMiddleware> logger)
         {
             _next = next ?? throw new ArgumentNullException(nameof(next));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -51,8 +51,8 @@ namespace CrealutionServer.Infrastructure.Middlewares
                 error = "Validate error";
             }
 
-            _logger.Error(
-                exception, 
+            _logger.LogError(
+                exception,
                 error);
 
             var responce = new

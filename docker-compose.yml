@@ -76,3 +76,5 @@ volumes:
   pgadmin-data:
   redis:
     driver: local
+  grafana-data:
+    driver: local

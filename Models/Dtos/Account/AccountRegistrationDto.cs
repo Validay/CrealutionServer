@@ -12,19 +12,19 @@ namespace CrealutionServer.Models.Dtos.Accounts
         /// </summary>
         [Required]
         [MaxLength(255)]
-        public string Name { get; set; }
+        public string Name { get; init; }
 
         /// <summary>
         /// Name account
         /// </summary>
         [Required]
         [MaxLength(255)]
-        public string DisplayName { get; set; }
+        public string DisplayName { get; init; }
 
         /// <summary>
         /// Password account
         /// </summary>
         [Required]
-        public string Password { get; set; }
+        public string Password { get; init; }
     }
 }

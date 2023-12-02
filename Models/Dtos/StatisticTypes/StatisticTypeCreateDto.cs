@@ -12,6 +12,6 @@ namespace CrealutionServer.Models.Dtos.StatisticTypes
         /// </summary>
         [Required]
         [MaxLength(255)]
-        public string Name { get; set; }
+        public string Name { get; init; }
     }
 }

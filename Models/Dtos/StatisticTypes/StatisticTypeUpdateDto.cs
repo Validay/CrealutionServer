@@ -11,13 +11,13 @@ namespace CrealutionServer.Models.Dtos.StatisticTypes
         /// Id statistic type
         /// </summary>
         [Required]
-        public long Id { get; set; }
+        public long Id { get; init; }
 
         /// <summary>
         /// New name statistic type
         /// </summary>
         [Required]
         [MaxLength(255)]
-        public string Name { get; set; }
+        public string Name { get; init; }
     }
 }
