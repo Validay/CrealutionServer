@@ -132,6 +132,7 @@ namespace CrealutionServer.WebApi
             builder.Services.AddScoped<IZoneTypeRepository, ZoneTypeRepository>();
             builder.Services.AddScoped<ISickTypeRepository, SickTypeRepository>();
             builder.Services.AddScoped<IMoveTypeRepository, MoveTypeRepository>();
+            builder.Services.AddScoped<IBodyTypeRepository, BodyTypeRepository>();
             builder.Services.AddScoped<IBehaviorTypeRepository, BehaviorTypeRepository>();
             builder.Services.AddScoped<IAccountItemTypeRepository, AccountItemTypeRepository>();
 

@@ -9,6 +9,7 @@ namespace CrealutionServer.Infrastructure.Database
 {
     public class CrealutionDb : DbContext
     {
+        public virtual DbSet<BodyType> BodyTypes { get; set; }  
         public virtual DbSet<BehaviorType> BehaviorTypes { get; set; }  
         public virtual DbSet<SickType> SickTypes { get; set; }  
         public virtual DbSet<MoveType> MoveTypes { get; set; }  
