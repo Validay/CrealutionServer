@@ -130,6 +130,7 @@ namespace CrealutionServer.WebApi
             builder.Services.AddScoped<ITerrariumRepository, TerrariumRepository>();
             builder.Services.AddScoped<IItemTypeRepository, ItemTypeRepository>();
             builder.Services.AddScoped<IZoneTypeRepository, ZoneTypeRepository>();
+            builder.Services.AddScoped<ISickTypeRepository, SickTypeRepository>();
             builder.Services.AddScoped<IMoveTypeRepository, MoveTypeRepository>();
             builder.Services.AddScoped<IAccountItemTypeRepository, AccountItemTypeRepository>();
 
