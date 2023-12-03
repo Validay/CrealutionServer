@@ -4,7 +4,6 @@ using CrealutionServer.Domain.Entities;
 using CrealutionServer.Infrastructure.Database;
 using CrealutionServer.Infrastructure.Exceptions;
 using CrealutionServer.Infrastructure.Repositories.Interfaces;
-using CrealutionServer.Infrastructure.Services.Interfaces;
 using CrealutionServer.Models.Dtos.Terrariums;
 using Microsoft.EntityFrameworkCore;
 
@@ -101,6 +100,7 @@ namespace CrealutionServer.Infrastructure.Repositories
         public async Task<TerrariumDto> Update(TerrariumUpdateDto updateDto)
         {
             var entity = await _context.Terrariums
+                .Include(x => x.Account)
                 .FirstOrDefaultAsync(x => x.Id == updateDto.Id);
             var account = await _context.Accounts.FirstOrDefaultAsync(x => x.Id == updateDto.AccountId);
             var dublicate = await _context.Terrariums.FirstOrDefaultAsync(x => x.Name == updateDto.Name);

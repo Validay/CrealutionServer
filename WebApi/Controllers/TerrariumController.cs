@@ -33,7 +33,7 @@ namespace CrealutionServer.WebApi.Controllers
         /// Get terrarium by id
         /// </summary>
         /// <returns>Terrarium dto</returns>
-        /// <param name="id">Id statistic type</param>
+        /// <param name="id">Id terrarium</param>
         /// <response code="200">Successful response</response>
         /// <response code="401">Not authorized</response>
         /// <response code="404">Not found</response>

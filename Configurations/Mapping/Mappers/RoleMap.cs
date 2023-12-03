@@ -12,10 +12,10 @@ namespace CrealutionServer.Configurations.Mapping.Mappers
         {
             profile.CreateMap<ICollection<Role>, RoleGetAllDto>()
                 .ForMember(dest => dest.Roles, opt => opt
-                    .MapFrom(src => src.Select(statisticType => new RoleDto
+                    .MapFrom(src => src.Select(r => new RoleDto
                     {
-                        Id = statisticType.Id,
-                        Name = statisticType.Name
+                        Id = r.Id,
+                        Name = r.Name
                     })));
 
             profile.CreateMap<Role, RoleDto>()

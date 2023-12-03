@@ -151,6 +151,7 @@ namespace CrealutionServer.Infrastructure.Repositories
                 .Include(x => x.Roles)
                 .Include(x => x.Terrariums)
                 .Include(x => x.AccountItemTypes)
+                .ThenInclude(x => x.ItemType)
                 .ToListAsync();
 
             return _mapper.Map<AccountGetAllDto>(entities);
@@ -168,6 +169,7 @@ namespace CrealutionServer.Infrastructure.Repositories
                 .Include(x => x.Roles)
                 .Include(x => x.Terrariums)
                 .Include(x => x.AccountItemTypes)
+                .ThenInclude(x => x.ItemType)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity == null)
@@ -188,6 +190,7 @@ namespace CrealutionServer.Infrastructure.Repositories
                 .Include(x => x.Roles)
                 .Include(x => x.Terrariums)
                 .Include(x => x.AccountItemTypes)
+                .ThenInclude(x => x.ItemType)
                 .FirstOrDefaultAsync(x => x.Name == name);
 
             if (entity == null)
@@ -244,6 +247,7 @@ namespace CrealutionServer.Infrastructure.Repositories
                 .Include(x => x.Roles)
                 .Include(x => x.Terrariums)
                 .Include(x => x.AccountItemTypes)
+                .ThenInclude(x => x.ItemType)
                 .FirstOrDefaultAsync(x => x.Id == updateDto.Id);
             var dublicate = await _context.Accounts.FirstOrDefaultAsync(x => x.Name == updateDto.Name);
             var roles = await _context.Roles

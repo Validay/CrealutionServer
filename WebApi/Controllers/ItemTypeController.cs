@@ -1,5 +1,5 @@
 ﻿using CrealutionServer.Infrastructure.Repositories.Interfaces;
-using CrealutionServer.Models.Dtos.Roles;
+using CrealutionServer.Models.Dtos.ItemTypes;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -7,78 +7,78 @@ namespace CrealutionServer.WebApi.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class RoleController : ControllerBase
+    public class ItemTypeController : ControllerBase
     {
-        private IRoleRepository _roleRepository;
+        private IItemTypeRepository _itemTypeRepository;
 
-        public RoleController(IRoleRepository roleRepository)
+        public ItemTypeController(IItemTypeRepository itemTypeRepository)
         {
-            _roleRepository = roleRepository;
+            _itemTypeRepository = itemTypeRepository;
         }
 
         /// <summary>
-        /// Get all roles
+        /// Get all item types
         /// </summary>
-        /// <returns>All role dtos</returns>
+        /// <returns>All item type dtos</returns>
         /// <response code="200">Successful response</response>      
         /// <response code="401">Not authorized</response> 
         /// <response code="500">Internal error</response>
         [HttpGet]
-        public async Task<RoleGetAllDto> GetAll()
+        public async Task<ItemTypeGetAllDto> GetAll()
         {
-            return await _roleRepository.GetAll();
+            return await _itemTypeRepository.GetAll();
         }
 
         /// <summary>
-        /// Get role by id
+        /// Get item type by id
         /// </summary>
-        /// <returns>Role dto</returns>
-        /// <param name="id">Id role</param>
+        /// <returns>ItemType dto</returns>
+        /// <param name="id">Id item type</param>
         /// <response code="200">Successful response</response>
         /// <response code="401">Not authorized</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Internal error</response>
         [HttpGet("{id}")]
-        public async Task<RoleDto> GetById(long id)
+        public async Task<ItemTypeDto> GetById(long id)
         {
-            return await _roleRepository.GetById(id);
+            return await _itemTypeRepository.GetById(id);
         }
 
         /// <summary>
-        /// Create new role
+        /// Create new item type
         /// </summary>
-        /// <returns>Role dto</returns>
-        /// <param name="createDto">New role</param>
+        /// <returns>ItemType dto</returns>
+        /// <param name="createDto">New item type</param>
         /// <response code="200">Successful response</response>
         /// <response code="400">Bad request</response>
         /// <response code="401">Not authorized</response>
         /// <response code="500">Internal error</response>
         [HttpPost]
-        public async Task<RoleDto> Create([FromBody] RoleCreateDto createDto)
+        public async Task<ItemTypeDto> Create([FromBody] ItemTypeCreateDto createDto)
         {
-            return await _roleRepository.Create(createDto);
+            return await _itemTypeRepository.Create(createDto);
         }
 
         /// <summary>
-        /// Update role
+        /// Update item type
         /// </summary>
-        /// <returns>Role dto</returns>
-        /// <param name="updateDto">Update model role</param>
+        /// <returns>ItemType dto</returns>
+        /// <param name="updateDto">Update model item type</param>
         /// <response code="200">Successful response</response>
         /// <response code="400">Bad request</response>
         /// <response code="401">Not authorized</response>
         /// <response code="404">Not found</response>
         /// <response code="500">Internal error</response>
         [HttpPut]
-        public async Task<RoleDto> Update([FromBody] RoleUpdateDto updateDto)
+        public async Task<ItemTypeDto> Update([FromBody] ItemTypeUpdateDto updateDto)
         {
-            return await _roleRepository.Update(updateDto);
+            return await _itemTypeRepository.Update(updateDto);
         }
 
         /// <summary>
-        /// Delete role
+        /// Delete item type
         /// </summary>
-        /// <param name="id">Id role</param>
+        /// <param name="id">Id item type</param>
         /// <response code="204">Successful response, no content</response>
         /// <response code="401">Not authorized</response>
         /// <response code="404">Not found</response>
@@ -86,7 +86,7 @@ namespace CrealutionServer.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
-            await _roleRepository.Delete(id);
+            await _itemTypeRepository.Delete(id);
 
             return NoContent();
         }
