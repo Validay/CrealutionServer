@@ -125,9 +125,12 @@ namespace CrealutionServer.WebApi
             builder.Services.AddScoped<ICacheService, CacheService>();
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IStatisticTypeRepository, StatisticTypeRepository>();
+            builder.Services.AddScoped<ICharacteristicTypeRepository, CharacteristicTypeRepository>();
             builder.Services.AddScoped<IAccountRepository, AccountRepository>();
             builder.Services.AddScoped<ITerrariumRepository, TerrariumRepository>();
             builder.Services.AddScoped<IItemTypeRepository, ItemTypeRepository>();
+            builder.Services.AddScoped<IZoneTypeRepository, ZoneTypeRepository>();
+            builder.Services.AddScoped<IMoveTypeRepository, MoveTypeRepository>();
             builder.Services.AddScoped<IAccountItemTypeRepository, AccountItemTypeRepository>();
 
             var app = builder.Build();

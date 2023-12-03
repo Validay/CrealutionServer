@@ -3,6 +3,7 @@ using System;
 using CrealutionServer.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CrealutionServer.Infrastructure.Migrations
 {
     [DbContext(typeof(CrealutionDb))]
-    partial class CrealutionDbModelSnapshot : ModelSnapshot
+    [Migration("20231203164312_CharacteristicType")]
+    partial class CharacteristicType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,27 +168,6 @@ namespace CrealutionServer.Infrastructure.Migrations
                     b.ToTable("ItemTypes");
                 });
 
-            modelBuilder.Entity("CrealutionServer.Domain.Entities.MoveType", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("MoveTypes");
-                });
-
             modelBuilder.Entity("CrealutionServer.Domain.Entities.Role", b =>
                 {
                     b.Property<long>("Id")
@@ -253,27 +234,6 @@ namespace CrealutionServer.Infrastructure.Migrations
                     b.HasIndex("AccountId");
 
                     b.ToTable("Terrariums");
-                });
-
-            modelBuilder.Entity("CrealutionServer.Domain.Entities.ZoneType", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("ZoneTypes");
                 });
 
             modelBuilder.Entity("AccountRole", b =>
